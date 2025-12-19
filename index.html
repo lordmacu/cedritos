@@ -878,6 +878,107 @@
             }
         });
 
+        // Variable para guardar el evento de instalación
+        let deferredPrompt;
+        let installButton;
+
+        // Capturar el evento beforeinstallprompt
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // Prevenir que el navegador muestre su propio prompt
+            e.preventDefault();
+            // Guardar el evento para usarlo después
+            deferredPrompt = e;
+            // Mostrar el botón de instalación personalizado
+            showInstallButton();
+        });
+
+        function showInstallButton() {
+            // Buscar el banner de instalación existente
+            const installBanner = document.querySelector('.install-banner');
+
+            if (!installBanner) return;
+
+            // Crear el botón de instalación
+            if (!installButton) {
+                installButton = document.createElement('button');
+                installButton.innerHTML = '📲 Instalar App Ahora';
+                installButton.style.cssText = `
+                    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+                    color: white;
+                    border: none;
+                    padding: 15px 30px;
+                    border-radius: 10px;
+                    font-size: 18px;
+                    font-weight: bold;
+                    cursor: pointer;
+                    margin-top: 15px;
+                    width: 100%;
+                    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+                    transition: all 0.3s;
+                `;
+
+                installButton.addEventListener('mouseenter', () => {
+                    installButton.style.transform = 'translateY(-2px)';
+                    installButton.style.boxShadow = '0 6px 20px rgba(76, 175, 80, 0.6)';
+                });
+
+                installButton.addEventListener('mouseleave', () => {
+                    installButton.style.transform = 'translateY(0)';
+                    installButton.style.boxShadow = '0 4px 15px rgba(76, 175, 80, 0.4)';
+                });
+
+                installButton.addEventListener('click', async () => {
+                    if (!deferredPrompt) {
+                        return;
+                    }
+
+                    // Mostrar el prompt de instalación
+                    deferredPrompt.prompt();
+
+                    // Esperar la respuesta del usuario
+                    const { outcome } = await deferredPrompt.userChoice;
+
+                    if (outcome === 'accepted') {
+                        console.log('Usuario aceptó la instalación');
+                    } else {
+                        console.log('Usuario rechazó la instalación');
+                    }
+
+                    // Limpiar el prompt
+                    deferredPrompt = null;
+                    installButton.style.display = 'none';
+                });
+
+                installBanner.appendChild(installButton);
+            } else {
+                installButton.style.display = 'block';
+            }
+        }
+
+        // Detectar cuando la app ya está instalada
+        window.addEventListener('appinstalled', () => {
+            console.log('App instalada exitosamente');
+            if (installButton) {
+                installButton.style.display = 'none';
+            }
+            // Opcional: mostrar un mensaje de éxito
+            const installBanner = document.querySelector('.install-banner');
+            if (installBanner) {
+                const successMsg = document.createElement('div');
+                successMsg.innerHTML = '✅ ¡App instalada! Puedes acceder desde tu pantalla de inicio';
+                successMsg.style.cssText = `
+                    background: #4CAF50;
+                    color: white;
+                    padding: 15px;
+                    border-radius: 8px;
+                    margin-top: 15px;
+                    text-align: center;
+                    font-weight: bold;
+                `;
+                installBanner.appendChild(successMsg);
+            }
+        });
+
         // Registrar Service Worker para PWA
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
