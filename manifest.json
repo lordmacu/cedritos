@@ -2,7 +2,7 @@
   "name": "Apartamento 604 - Edificio Toscana",
   "short_name": "Apto 604",
   "description": "Guía de bienvenida y información útil para tu estancia en el Apartamento 604",
-  "start_url": "/index.html",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#FF5A5F",
