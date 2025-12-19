@@ -253,52 +253,6 @@
             font-size: 0.9em;
         }
 
-        .install-banner {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 12px;
-            margin: 20px 0;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(102,126,234,0.3);
-        }
-
-        .install-banner h3 {
-            margin: 0 0 10px 0;
-            font-size: 1.2em;
-        }
-
-        .install-banner p {
-            margin: 0;
-            font-size: 0.95em;
-            opacity: 0.95;
-        }
-
-        .install-steps {
-            background: white;
-            color: #333;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 15px;
-            text-align: left;
-        }
-
-        .install-steps h4 {
-            margin: 0 0 10px 0;
-            color: var(--airbnb-pink);
-            font-size: 1em;
-        }
-
-        .install-steps ol {
-            margin: 0;
-            padding-left: 20px;
-            font-size: 0.9em;
-        }
-
-        .install-steps li {
-            margin: 5px 0;
-        }
-
         .language-switcher {
             position: absolute;
             top: 20px;
@@ -366,6 +320,10 @@
                     Bogotá, Colombia<br><br>
                     <a href="https://maps.google.com/?q=Calle+145+13a-70+Bogota" target="_blank" style="color: white; background: rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 8px; text-decoration: none; display: inline-block; margin-top: 10px; font-weight: bold;">
                         📍 Ver en Google Maps
+                    </a>
+                    <br>
+                    <a href="https://www.airbnb.com.co/rooms/1577896875563043691?guests=1&adults=1&s=67&unique_share_id=bffd31c1-40af-4bb9-ad3e-0d781faba358&_set_bev_on_new_domain=1766163097_EAZDM5YjZlOGEzYm&set_everest_cookie_on_new_domain=1766163097.EANjExZDRmYjZmMGI4Yj.qNf5NGHTyBnkFVe_EzKMU1w5kghRetRCStcfN3N4pGU&source_impression_id=p3_1766163097_P39NmJkyBWM2kU3-" target="_blank" rel="noopener noreferrer" data-es="🏠 Ver anuncio en Airbnb" data-en="🏠 View listing on Airbnb" style="color: white; background: rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 8px; text-decoration: none; display: inline-block; margin-top: 10px; font-weight: bold;">
+                        🏠 Ver anuncio en Airbnb
                     </a>
                 </div>
             </div>
@@ -646,30 +604,6 @@
             </div>
 
             <!-- Banner de Instalación -->
-            <div class="section">
-                <div class="install-banner">
-                    <h3>📲 Instala esta guía en tu celular</h3>
-                    <p>Accede fácilmente a toda la información desde tu pantalla de inicio</p>
-
-                    <div class="install-steps">
-                        <h4>🤖 Android (Chrome/Edge):</h4>
-                        <ol>
-                            <li>Toca el menú (⋮) en la esquina superior</li>
-                            <li>Selecciona "Agregar a pantalla de inicio"</li>
-                            <li>Confirma y listo!</li>
-                        </ol>
-                    </div>
-
-                    <div class="install-steps">
-                        <h4>🍎 iPhone/iPad (Safari):</h4>
-                        <ol>
-                            <li>Toca el botón Compartir (□↑)</li>
-                            <li>Selecciona "Agregar a pantalla de inicio"</li>
-                            <li>Dale un nombre y toca "Agregar"</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <div class="footer">
@@ -818,6 +752,9 @@
 
             // Guardar preferencia
             localStorage.setItem('preferred-language', currentLang);
+
+            // Actualizar textos dinámicos
+            updateInstallButtonText();
         }
 
         function translatePageContent() {
@@ -882,101 +819,84 @@
         let deferredPrompt;
         let installButton;
 
+        function updateInstallButtonText() {
+            if (!installButton) return;
+
+            const label = currentLang === 'en' ? '📲 Install App' : '📲 Instalar App';
+            const ariaLabel = currentLang === 'en' ? 'Install app' : 'Instalar app';
+
+            installButton.innerHTML = label;
+            installButton.setAttribute('aria-label', ariaLabel);
+        }
+
         // Capturar el evento beforeinstallprompt
         window.addEventListener('beforeinstallprompt', (e) => {
-            // Prevenir que el navegador muestre su propio prompt
             e.preventDefault();
-            // Guardar el evento para usarlo después
             deferredPrompt = e;
-            // Mostrar el botón de instalación personalizado
             showInstallButton();
         });
 
         function showInstallButton() {
-            // Buscar el banner de instalación existente
-            const installBanner = document.querySelector('.install-banner');
-
-            if (!installBanner) return;
-
-            // Crear el botón de instalación
             if (!installButton) {
                 installButton = document.createElement('button');
-                installButton.innerHTML = '📲 Instalar App Ahora';
+                installButton.type = 'button';
+                updateInstallButtonText();
                 installButton.style.cssText = `
                     background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
                     color: white;
                     border: none;
-                    padding: 15px 30px;
-                    border-radius: 10px;
-                    font-size: 18px;
+                    padding: 14px 18px;
+                    border-radius: 999px;
+                    font-size: 16px;
                     font-weight: bold;
                     cursor: pointer;
-                    margin-top: 15px;
-                    width: 100%;
-                    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+                    position: fixed;
+                    left: 50%;
+                    bottom: calc(16px + env(safe-area-inset-bottom));
+                    transform: translateX(-50%);
+                    width: min(520px, calc(100% - 32px));
+                    z-index: 9999;
+                    box-shadow: 0 8px 24px rgba(76, 175, 80, 0.45);
                     transition: all 0.3s;
                 `;
 
                 installButton.addEventListener('mouseenter', () => {
-                    installButton.style.transform = 'translateY(-2px)';
-                    installButton.style.boxShadow = '0 6px 20px rgba(76, 175, 80, 0.6)';
+                    installButton.style.transform = 'translateX(-50%) translateY(-2px)';
+                    installButton.style.boxShadow = '0 10px 28px rgba(76, 175, 80, 0.6)';
                 });
 
                 installButton.addEventListener('mouseleave', () => {
-                    installButton.style.transform = 'translateY(0)';
-                    installButton.style.boxShadow = '0 4px 15px rgba(76, 175, 80, 0.4)';
+                    installButton.style.transform = 'translateX(-50%) translateY(0)';
+                    installButton.style.boxShadow = '0 8px 24px rgba(76, 175, 80, 0.45)';
                 });
 
                 installButton.addEventListener('click', async () => {
-                    if (!deferredPrompt) {
-                        return;
-                    }
+                    if (!deferredPrompt) return;
 
-                    // Mostrar el prompt de instalación
                     deferredPrompt.prompt();
+                    await deferredPrompt.userChoice;
 
-                    // Esperar la respuesta del usuario
-                    const { outcome } = await deferredPrompt.userChoice;
-
-                    if (outcome === 'accepted') {
-                        console.log('Usuario aceptó la instalación');
-                    } else {
-                        console.log('Usuario rechazó la instalación');
-                    }
-
-                    // Limpiar el prompt
                     deferredPrompt = null;
                     installButton.style.display = 'none';
+                    document.body.style.paddingBottom = '';
                 });
 
-                installBanner.appendChild(installButton);
+                document.body.appendChild(installButton);
             } else {
+                updateInstallButtonText();
                 installButton.style.display = 'block';
             }
+
+            // Evitar que tape el contenido inferior
+            document.body.style.paddingBottom = '90px';
         }
 
         // Detectar cuando la app ya está instalada
         window.addEventListener('appinstalled', () => {
-            console.log('App instalada exitosamente');
             if (installButton) {
                 installButton.style.display = 'none';
             }
-            // Opcional: mostrar un mensaje de éxito
-            const installBanner = document.querySelector('.install-banner');
-            if (installBanner) {
-                const successMsg = document.createElement('div');
-                successMsg.innerHTML = '✅ ¡App instalada! Puedes acceder desde tu pantalla de inicio';
-                successMsg.style.cssText = `
-                    background: #4CAF50;
-                    color: white;
-                    padding: 15px;
-                    border-radius: 8px;
-                    margin-top: 15px;
-                    text-align: center;
-                    font-weight: bold;
-                `;
-                installBanner.appendChild(successMsg);
-            }
+            document.body.style.paddingBottom = '';
         });
 
         // Registrar Service Worker para PWA
