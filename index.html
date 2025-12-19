@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido a tu Estancia - Apartamento 604</title>
+
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#FF5A5F">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Apartamento 604">
+    <meta name="description" content="Guía de bienvenida para tu estancia en el Apartamento 604, Edificio Toscana, Bogotá">
+
+    <!-- Manifest -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
+    <link rel="apple-touch-icon" href="icon-192.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Circular:wght@400;500;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --airbnb-pink: #FF5A5F;
+            --airbnb-dark: #484848;
+            --airbnb-light: #FAFAFA;
+            --airbnb-accent: #00A699;
+            --airbnb-blue: #008489;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--airbnb-dark);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--airbnb-pink) 0%, #ff385c 100%);
+            color: white;
+               padding: 80px 30px;
+    padding-bottom: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .content {
+            padding: 40px 30px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            color: var(--airbnb-pink);
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: var(--airbnb-pink);
+            border-radius: 2px;
+        }
+
+        .address-card {
+            background: linear-gradient(135deg, var(--airbnb-blue) 0%, var(--airbnb-accent) 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            font-size: 1.1em;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,166,153,0.3);
+        }
+
+        .address-card strong {
+            display: block;
+            font-size: 1.3em;
+            margin-bottom: 5px;
+        }
+
+        .info-box {
+            background: #f8f9fa;
+            border-left: 4px solid var(--airbnb-accent);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .info-box p {
+            margin: 0;
+            color: #666;
+        }
+
+        .rules-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .rules-list li {
+            background: #fff;
+            padding: 15px 20px;
+            margin-bottom: 12px;
+            border-radius: 10px;
+            border-left: 4px solid var(--airbnb-pink);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+
+        .rules-list li:hover {
+            transform: translateX(5px);
+        }
+
+        .rules-list li::before {
+            content: '✓';
+            color: var(--airbnb-pink);
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+
+        .zone-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .zone-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(102,126,234,0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .zone-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(102,126,234,0.5);
+        }
+
+        .zone-card h3 {
+            font-size: 1.1em;
+            margin-bottom: 8px;
+        }
+
+        .zone-card p {
+            font-size: 0.95em;
+            opacity: 0.95;
+        }
+
+        .recommendations a {
+            transition: all 0.3s;
+        }
+
+        .recommendations a:hover {
+            opacity: 0.8;
+            text-decoration: underline !important;
+        }
+
+        .alert-box {
+            background: linear-gradient(135deg, #FFD93D 0%, #FFA400 100%);
+            color: #333;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 30px 0;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(255,165,0,0.3);
+            font-weight: 500;
+            font-size: 1.15em;
+        }
+
+        .alert-box strong {
+            display: block;
+            font-size: 1.3em;
+            margin-bottom: 8px;
+            color: #000;
+        }
+
+        .recommendations {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 15px;
+        }
+
+        .recommendations ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 15px;
+        }
+
+        .recommendations li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .recommendations li::before {
+            content: '📍';
+            position: absolute;
+            left: 0;
+        }
+
+        .footer {
+            background: var(--airbnb-light);
+            padding: 25px;
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .install-banner {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(102,126,234,0.3);
+        }
+
+        .install-banner h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.2em;
+        }
+
+        .install-banner p {
+            margin: 0;
+            font-size: 0.95em;
+            opacity: 0.95;
+        }
+
+        .install-steps {
+            background: white;
+            color: #333;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            text-align: left;
+        }
+
+        .install-steps h4 {
+            margin: 0 0 10px 0;
+            color: var(--airbnb-pink);
+            font-size: 1em;
+        }
+
+        .install-steps ol {
+            margin: 0;
+            padding-left: 20px;
+            font-size: 0.9em;
+        }
+
+        .install-steps li {
+            margin: 5px 0;
+        }
+
+        .language-switcher {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.2);
+            border: 2px solid white;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 0.9em;
+        }
+
+        .language-switcher:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .header {
+                padding: 30px 20px;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .content {
+                padding: 25px 20px;
+            }
+
+            .section-title {
+                font-size: 1.3em;
+            }
+
+            .zone-info {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header" style="position: relative;">
+            <button class="language-switcher" onclick="toggleLanguage()">
+                <span id="lang-btn-text">🇺🇸 English</span>
+            </button>
+            <h1 data-es="¡Bienvenido a tu Estancia en Bogotá! 🏠" data-en="Welcome to Your Stay in Bogotá! 🏠">¡Bienvenido a tu Estancia en Bogotá! 🏠</h1>
+            <p data-es="Nos alegra tenerte aquí. Esperamos que disfrutes tu estadía" data-en="We're glad to have you here. We hope you enjoy your stay">Nos alegra tenerte aquí. Esperamos que disfrutes tu estadía</p>
+        </div>
+
+        <div class="content">
+            <!-- Dirección -->
+            <div class="section">
+                <div class="address-card">
+                    <strong>📍 Tu Dirección</strong>
+                    Cl. 145 #13a-70<br>
+                    Edificio Toscana - Apartamento 604<br>
+                    Bogotá, Colombia<br><br>
+                    <a href="https://maps.google.com/?q=Calle+145+13a-70+Bogota" target="_blank" style="color: white; background: rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 8px; text-decoration: none; display: inline-block; margin-top: 10px; font-weight: bold;">
+                        📍 Ver en Google Maps
+                    </a>
+                </div>
+            </div>
+
+            <!-- Guía del Apartamento -->
+            <div class="section">
+                <h2 class="section-title">Guía del Apartamento</h2>
+
+                <div style="display: grid; gap: 15px;">
+                    <!-- Instrucciones del apartamento -->
+                    <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-left: 4px solid #00A699;">
+                        <h4 style="color: #00A699; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                            🔑 Check-in y Acceso
+                        </h4>
+                        <p style="color: #666; margin-bottom: 8px; line-height: 1.7;">
+                            Al llegar, dirígete a la portería del Edificio Toscana. El portero te entregará las llaves del apartamento 604. Recuerda llevar tu documento de identidad.
+                        </p>
+                    </div>
+
+                    <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-left: 4px solid #667eea;">
+                        <h4 style="color: #667eea; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                            🚪 Áreas Comunes
+                        </h4>
+                        <p style="color: #666; margin-bottom: 8px; line-height: 1.7;">
+                            El edificio cuenta con ascensor, zonas comunes y portería 24/7. Mantén siempre un trato cordial con los vecinos y el personal de seguridad.
+                        </p>
+                    </div>
+
+                    <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-left: 4px solid #f093fb;">
+                        <h4 style="color: #f093fb; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                            🧹 Al Salir del Apartamento
+                        </h4>
+                        <p style="color: #666; line-height: 1.7;">
+                            <strong>Importante:</strong><br>
+                            • Asegúrate de apagar todas las luces y electrodomésticos<br>
+                            • Cierra bien las ventanas y puertas<br>
+                            • Deja la basura en las bolsas y en el lugar designado<br>
+                            • <strong>Entrega las llaves en la portería</strong> (MUY IMPORTANTE)
+                        </p>
+                    </div>
+
+                    <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-left: 4px solid #FFD93D;">
+                        <h4 style="color: #FF9800; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                            ⚡ Servicios Públicos
+                        </h4>
+                        <p style="color: #666; line-height: 1.7;">
+                            El apartamento cuenta con:<br>
+                            • Agua caliente<br>
+                            • Calefacción/Ventilación<br>
+                            • WiFi de alta velocidad<br>
+                            • Todos los servicios incluidos en tu reserva
+                        </p>
+                    </div>
+
+                    <div style="background: linear-gradient(135deg, #4CAF5015 0%, #4CAF5015 100%); padding: 20px; border-radius: 12px; border: 2px solid #4CAF50;">
+                        <h4 style="color: #4CAF50; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                            📝 Consejos para tu Estadía
+                        </h4>
+                        <ul style="color: #666; padding-left: 20px; line-height: 1.8; margin: 0;">
+                            <li>Si algo no funciona, contáctanos de inmediato por WhatsApp</li>
+                            <li>Trata el apartamento como si fuera tuyo</li>
+                            <li>Usa el sofá cama siguiendo el tutorial para evitar daños</li>
+                            <li>Respeta los horarios de silencio después de las 11:00 PM</li>
+                            <li>No pierdas las llaves - hay un cargo por reposición</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Información de la Zona -->
+            <div class="section">
+                <h2 class="section-title">Sobre la Zona</h2>
+                <div class="info-box">
+                    <p>El apartamento está ubicado en el norte de Bogotá, en una zona residencial tranquila y segura. Esta área es conocida por su excelente conectividad, comercio local y ambiente familiar.</p>
+                </div>
+
+                <div class="zone-info">
+                    <div class="zone-card" onclick="window.open('https://maps.google.com/?q=supermercados+cerca+de+calle+145+bogota', '_blank')" style="cursor: pointer;">
+                        <h3>🛒 Supermercados</h3>
+                        <p>Éxito, Carulla y tiendas locales a pocos minutos</p>
+                    </div>
+                    <div class="zone-card" onclick="window.open('https://maps.google.com/?q=restaurantes+cerca+de+calle+145+bogota', '_blank')" style="cursor: pointer;">
+                        <h3>🍽️ Restaurantes</h3>
+                        <p>Variedad de opciones gastronómicas cercanas</p>
+                    </div>
+                    <div class="zone-card" onclick="window.open('https://maps.google.com/?q=transmilenio+cerca+de+calle+145+bogota', '_blank')" style="cursor: pointer;">
+                        <h3>🚌 Transporte</h3>
+                        <p>Acceso a TransMilenio y rutas de buses</p>
+                    </div>
+                    <div class="zone-card" onclick="window.open('https://maps.google.com/?q=farmacias+cerca+de+calle+145+bogota', '_blank')" style="cursor: pointer;">
+                        <h3>🏥 Servicios</h3>
+                        <p>Farmacias, bancos y centros de salud cercanos</p>
+                    </div>
+                </div>
+
+                <div class="recommendations">
+                    <strong>📌 Lugares Recomendados</strong>
+                    <ul>
+                        <li><a href="https://maps.google.com/?q=Centro+Comercial+Unicentro+Bogota" target="_blank" style="color: white; text-decoration: none;">Centro Comercial Unicentro (15 min) →</a></li>
+                        <li><a href="https://maps.google.com/?q=Usaquen+Bogota" target="_blank" style="color: white; text-decoration: none;">Usaquén y su mercado de pulgas (20 min) →</a></li>
+                        <li><a href="https://maps.google.com/?q=Zona+T+Bogota" target="_blank" style="color: white; text-decoration: none;">Zona T y Parque de la 93 (25 min) →</a></li>
+                        <li><a href="https://maps.google.com/?q=Monserrate+Bogota" target="_blank" style="color: white; text-decoration: none;">Monserrate (30 min) →</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Explora Bogotá -->
+            <div class="section">
+                <h2 class="section-title">Descubre Bogotá</h2>
+
+                <div class="info-box" style="background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%); border-left: 4px solid #667eea;">
+                    <h3 style="color: #667eea; margin-bottom: 15px; font-size: 1.2em;">🏙️ Sobre la Zona - Cedritos</h3>
+                    <p style="margin-bottom: 15px; line-height: 1.8;">
+                        El apartamento se encuentra en <strong>Cedritos</strong>, uno de los barrios más seguros y tranquilos del norte de Bogotá. Esta zona residencial es perfecta para quienes buscan comodidad y acceso rápido a los principales puntos de la ciudad.
+                    </p>
+                    <p style="line-height: 1.8;">
+                        A pocos minutos encontrarás la <strong>Autopista Norte</strong>, la <strong>Calle 127</strong> y acceso directo al <strong>TransMilenio</strong> (estaciones Portal Norte y Cardio Infantil). La zona cuenta con excelente oferta gastronómica, desde restaurantes típicos colombianos hasta cocina internacional. También hay varios centros comerciales, gimnasios, y todo lo necesario para una estadía cómoda.
+                    </p>
+                </div>
+
+                <h3 style="color: var(--airbnb-pink); margin: 30px 0 20px 0; font-size: 1.3em;">✨ Experiencias Imperdibles en Bogotá</h3>
+
+                <div style="display: grid; gap: 20px;">
+                    <!-- Monserrate -->
+                    <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-left: 4px solid #FF5A5F;">
+                        <h4 style="color: #FF5A5F; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                            ⛰️ Cerro de Monserrate
+                        </h4>
+                        <p style="color: #666; margin-bottom: 8px;">
+                            El símbolo más icónico de Bogotá. Sube en teleférico o funicular para disfrutar de vistas panorámicas espectaculares de toda la ciudad a 3,152 metros de altura. Ideal para ir temprano en la mañana o al atardecer.
+                        </p>
+                        <a href="https://maps.google.com/?q=Monserrate+Bogota" target="_blank" style="color: #FF5A5F; font-size: 0.9em; text-decoration: none; font-weight: 500;">Ver ubicación →</a>
+                    </div>
+
+                    <!-- La Candelaria -->
+                    <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-left: 4px solid #00A699;">
+                        <h4 style="color: #00A699; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                            🏛️ La Candelaria - Centro Histórico
+                        </h4>
+                        <p style="color: #666; margin-bottom: 8px;">
+                            El corazón colonial de Bogotá. Recorre sus calles empedradas, visita el <strong>Museo del Oro</strong> (imperdible), el <strong>Museo Botero</strong>, la <strong>Plaza de Bolívar</strong> y descubre el street art en sus coloridas fachadas. Perfecto para un día completo de exploración cultural.
+                        </p>
+                        <a href="https://maps.google.com/?q=La+Candelaria+Bogota" target="_blank" style="color: #00A699; font-size: 0.9em; text-decoration: none; font-weight: 500;">Ver ubicación →</a>
+                    </div>
+
+                    <!-- Usaquén -->
+                    <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-left: 4px solid #667eea;">
+                        <h4 style="color: #667eea; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                            🛍️ Usaquén - Mercado de Pulgas
+                        </h4>
+                        <p style="color: #666; margin-bottom: 8px;">
+                            Todos los domingos, este pintoresco barrio se llena de vida con su famoso mercado de artesanías. Encuentra productos locales, artesanías, joyería, ropa y deliciosa comida típica. El ambiente es perfecto para pasear y disfrutar de un domingo bogotano.
+                        </p>
+                        <a href="https://maps.google.com/?q=Usaquen+Bogota" target="_blank" style="color: #667eea; font-size: 0.9em; text-decoration: none; font-weight: 500;">Ver ubicación →</a>
+                    </div>
+
+                    <!-- Zona Rosa -->
+                    <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-left: 4px solid #f093fb;">
+                        <h4 style="color: #f093fb; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                            🍽️ Zona T y Parque de la 93
+                        </h4>
+                        <p style="color: #666; margin-bottom: 8px;">
+                            El epicentro gastronómico y de vida nocturna de Bogotá. Encuentra restaurantes de cocina internacional, bares, discotecas y cafés. Ideal para cenar, tomar algo o disfrutar del ambiente cosmopolita de la ciudad.
+                        </p>
+                        <a href="https://maps.google.com/?q=Zona+T+Bogota" target="_blank" style="color: #f093fb; font-size: 0.9em; text-decoration: none; font-weight: 500;">Ver ubicación →</a>
+                    </div>
+
+                    <!-- Gastronomía -->
+                    <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-left: 4px solid #FFD93D;">
+                        <h4 style="color: #FF9800; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                            🫔 Gastronomía Colombiana
+                        </h4>
+                        <p style="color: #666; margin-bottom: 8px;">
+                            No te vayas sin probar: <strong>Ajiaco bogotano</strong> (sopa típica), <strong>bandeja paisa</strong>, <strong>arepas</strong>, <strong>empanadas</strong>, <strong>lechona</strong> y un delicioso <strong>chocolate con queso</strong>. Para postres, prueba el <strong>arequipe</strong> y las <strong>obleas</strong>.
+                        </p>
+                    </div>
+
+                    <!-- Ciclovía -->
+                    <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-left: 4px solid #4CAF50;">
+                        <h4 style="color: #4CAF50; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                            🚴 Ciclovía Dominical
+                        </h4>
+                        <p style="color: #666; margin-bottom: 8px;">
+                            Todos los domingos y festivos de 7am a 2pm, más de 120 km de vías se cierran al tráfico vehicular. Alquila una bici y únete a miles de bogotanos en esta tradición de más de 40 años. ¡Una forma única de conocer la ciudad!
+                        </p>
+                    </div>
+
+                    <!-- Consejos -->
+                    <div style="background: linear-gradient(135deg, #ff385c15 0%, #ff5a5f15 100%); padding: 20px; border-radius: 12px; border: 2px solid #FF5A5F;">
+                        <h4 style="color: #FF5A5F; margin-bottom: 10px;">💡 Consejos Útiles</h4>
+                        <ul style="color: #666; padding-left: 20px; line-height: 1.8;">
+                            <li>Bogotá está a 2,640 metros de altura. Tómate el primer día con calma para aclimatarte</li>
+                            <li>El clima es impredecible. Lleva siempre una chaqueta ligera</li>
+                            <li>Usa apps como <strong>Beat</strong>, <strong>Uber</strong> o <strong>Cabify</strong> para moverte seguro</li>
+                            <li>Los mejores días para visitar museos: muchos son gratis los domingos</li>
+                            <li>Cambia dinero en casas de cambio oficiales, no en la calle</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sofá Cama Tutorial -->
+            <div class="section">
+                <h2 class="section-title">Instrucciones del Sofá Cama</h2>
+
+                <div style="background: white; padding: 25px; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.08);">
+                    <h3 style="color: var(--airbnb-pink); margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+                        🛋️ Cómo Usar el Sofá Cama
+                    </h3>
+                    <p style="color: #666; margin-bottom: 15px; line-height: 1.8;">
+                        Para evitar daños y asegurar que todos disfruten del sofá cama, por favor sigue este video tutorial que muestra paso a paso cómo desplegarlo y guardarlo correctamente:
+                    </p>
+
+                    <!-- Video de YouTube -->
+                    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; margin-bottom: 15px;">
+                       <iframe
+                           style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+                           width="560"
+                           height="315"
+                           src="https://www.youtube.com/embed/JkiIwDULrDY?si=DpXifpHP7EU0UpKh"
+                           title="YouTube video player"
+                           frameborder="0"
+                           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                           referrerpolicy="strict-origin-when-cross-origin"
+                           allowfullscreen>
+                       </iframe>
+                    </div>
+
+                    <a href="https://www.youtube.com/watch?v=JkiIwDULrDY" target="_blank" style="color: #FF5A5F; text-decoration: none; font-weight: 500; font-size: 0.95em;">
+                        📺 Ver en YouTube →
+                    </a>
+
+                    <div style="background: linear-gradient(135deg, #FFD93D15 0%, #FFA40015 100%); padding: 15px; border-radius: 8px; margin-top: 20px; border-left: 4px solid #FFD93D;">
+                        <p style="color: #666; margin: 0; line-height: 1.7;">
+                            <strong style="color: #FF9800;">⚠️ Importante:</strong> Seguir correctamente las instrucciones del video ayuda a prevenir daños al mecanismo del sofá cama. Si tienes dudas, contáctanos por WhatsApp antes de usarlo.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Normas de Convivencia -->
+            <div class="section">
+                <h2 class="section-title">Normas de Convivencia</h2>
+                <p style="margin-bottom: 20px; color: #666;">Para garantizar una experiencia agradable para todos, te pedimos seguir estas normas:</p>
+
+                <ul class="rules-list">
+                    <li><strong>No fiestas:</strong> El apartamento es un espacio de descanso. No se permiten fiestas ni reuniones grandes</li>
+                    <li><strong>No mascotas:</strong> Por políticas del edificio, no se permiten animales de compañía</li>
+                    <li><strong>Horario de silencio:</strong> Después de las 11:00 PM, mantén el volumen bajo para respetar a los vecinos</li>
+                    <li><strong>Áreas comunes:</strong> Respeta los espacios compartidos del edificio y sus normas</li>
+                    <li><strong>Fumadores:</strong> Si fumas, hazlo en el balcón o áreas permitidas</li>
+                </ul>
+            </div>
+
+            <!-- Aviso Importante -->
+            <div class="section">
+                <div class="alert-box">
+                    <strong>⚠️ MUY IMPORTANTE</strong>
+                    Al finalizar tu estadía, por favor entrega las llaves en la PORTERÍA del edificio. Es fundamental que sigas este procedimiento.
+                </div>
+            </div>
+
+            <!-- Información Adicional -->
+            <div class="section">
+                <h2 class="section-title">Información Útil</h2>
+                <div class="info-box">
+                    <p><strong>📶 WiFi:</strong><br>
+                    Red: <strong>APTO604</strong><br>
+                    Contraseña: <strong>41373163</strong><br><br>
+                    <strong>Check-out:</strong> No olvides dejar las llaves en portería<br>
+                    <strong>🚨 Emergencias:</strong> Número de emergencias en Bogotá: 123<br>
+                    <strong>📞 Contacto:</strong> 3154645370</p>
+
+                    <a href="https://wa.me/573154645370?text=Hola,%20estoy%20en%20el%20apartamento%20604%20y%20tengo%20una%20consulta" target="_blank" style="color: white; background: #25D366; padding: 12px 24px; border-radius: 8px; text-decoration: none; display: inline-block; margin-top: 15px; font-weight: bold;">
+                        💬 Contactar por WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <!-- Banner de Instalación -->
+            <div class="section">
+                <div class="install-banner">
+                    <h3>📲 Instala esta guía en tu celular</h3>
+                    <p>Accede fácilmente a toda la información desde tu pantalla de inicio</p>
+
+                    <div class="install-steps">
+                        <h4>🤖 Android (Chrome/Edge):</h4>
+                        <ol>
+                            <li>Toca el menú (⋮) en la esquina superior</li>
+                            <li>Selecciona "Agregar a pantalla de inicio"</li>
+                            <li>Confirma y listo!</li>
+                        </ol>
+                    </div>
+
+                    <div class="install-steps">
+                        <h4>🍎 iPhone/iPad (Safari):</h4>
+                        <ol>
+                            <li>Toca el botón Compartir (□↑)</li>
+                            <li>Selecciona "Agregar a pantalla de inicio"</li>
+                            <li>Dale un nombre y toca "Agregar"</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>¡Disfruta tu estadía en Bogotá! 🇨🇴<br>
+            Gracias por elegir nuestro apartamento</p>
+        </div>
+    </div>
+
+    <script>
+        // Sistema de traducción
+        let currentLang = 'es';
+
+        const translations = {
+            // Títulos de secciones
+            'Tu Dirección': 'Your Address',
+            'Ver en Google Maps': 'View on Google Maps',
+            'Guía del Apartamento': 'Apartment Guide',
+            'Check-in y Acceso': 'Check-in and Access',
+            'Al llegar, dirígete a la portería del Edificio Toscana. El portero te entregará las llaves del apartamento 604. Recuerda llevar tu documento de identidad.': 'Upon arrival, go to the lobby of Edificio Toscana. The doorman will give you the keys to apartment 604. Remember to bring your ID.',
+            'Áreas Comunes': 'Common Areas',
+            'El edificio cuenta con ascensor, zonas comunes y portería 24/7. Mantén siempre un trato cordial con los vecinos y el personal de seguridad.': 'The building has an elevator, common areas and 24/7 reception. Always be cordial with neighbors and security staff.',
+            'Al Salir del Apartamento': 'When Leaving the Apartment',
+            'Importante:': 'Important:',
+            '• Asegúrate de apagar todas las luces y electrodomésticos': '• Make sure to turn off all lights and appliances',
+            '• Cierra bien las ventanas y puertas': '• Close all windows and doors properly',
+            '• Deja la basura en las bolsas y en el lugar designado': '• Leave trash in bags at the designated place',
+            '• Entrega las llaves en la portería (MUY IMPORTANTE)': '• Leave keys at reception (VERY IMPORTANT)',
+            'Servicios Públicos': 'Public Services',
+            'El apartamento cuenta con:': 'The apartment includes:',
+            '• Agua caliente': '• Hot water',
+            '• Calefacción/Ventilación': '• Heating/Ventilation',
+            '• WiFi de alta velocidad': '• High-speed WiFi',
+            '• Todos los servicios incluidos en tu reserva': '• All services included in your reservation',
+            'Consejos para tu Estadía': 'Tips for Your Stay',
+            '• Si algo no funciona, contáctanos de inmediato por WhatsApp': '• If something doesn\'t work, contact us immediately via WhatsApp',
+            '• Trata el apartamento como si fuera tuyo': '• Treat the apartment as if it were yours',
+            '• Usa el sofá cama siguiendo el tutorial para evitar daños': '• Use the sofa bed following the tutorial to avoid damage',
+            '• Respeta los horarios de silencio después de las 11:00 PM': '• Respect quiet hours after 11:00 PM',
+            '• No pierdas las llaves - hay un cargo por reposición': '• Don\'t lose the keys - there\'s a replacement fee',
+
+            // Sobre la zona
+            'Sobre la Zona': 'About the Area',
+            'El apartamento está ubicado en el norte de Bogotá, en una zona residencial tranquila y segura. Esta área es conocida por su excelente conectividad, comercio local y ambiente familiar.': 'The apartment is located in northern Bogotá, in a quiet and safe residential area. This area is known for its excellent connectivity, local commerce and family atmosphere.',
+            'Supermercados': 'Supermarkets',
+            'Éxito, Carulla y tiendas locales a pocos minutos': 'Éxito, Carulla and local stores minutes away',
+            'Restaurantes': 'Restaurants',
+            'Variedad de opciones gastronómicas cercanas': 'Variety of nearby dining options',
+            'Transporte': 'Transportation',
+            'Acceso a TransMilenio y rutas de buses': 'Access to TransMilenio and bus routes',
+            'Servicios': 'Services',
+            'Farmacias, bancos y centros de salud cercanos': 'Nearby pharmacies, banks and health centers',
+            'Lugares Recomendados': 'Recommended Places',
+            'Centro Comercial Unicentro (15 min) →': 'Unicentro Shopping Mall (15 min) →',
+            'Usaquén y su mercado de pulgas (20 min) →': 'Usaquén and its flea market (20 min) →',
+            'Zona T y Parque de la 93 (25 min) →': 'T Zone and Park 93 (25 min) →',
+            'Monserrate (30 min) →': 'Monserrate (30 min) →',
+
+            // Descubre Bogotá
+            'Descubre Bogotá': 'Discover Bogotá',
+            'Sobre la Zona - Cedritos': 'About the Area - Cedritos',
+            'El apartamento se encuentra en Cedritos, uno de los barrios más seguros y tranquilos del norte de Bogotá. Esta zona residencial es perfecta para quienes buscan comodidad y acceso rápido a los principales puntos de la ciudad.': 'The apartment is located in Cedritos, one of the safest and quietest neighborhoods in northern Bogotá. This residential area is perfect for those seeking comfort and quick access to the city\'s main points.',
+            'A pocos minutos encontrarás la Autopista Norte, la Calle 127 y acceso directo al TransMilenio (estaciones Portal Norte y Cardio Infantil). La zona cuenta con excelente oferta gastronómica, desde restaurantes típicos colombianos hasta cocina internacional. También hay varios centros comerciales, gimnasios, y todo lo necesario para una estadía cómoda.': 'Minutes away you\'ll find Autopista Norte, Calle 127 and direct access to TransMilenio (Portal Norte and Cardio Infantil stations). The area has excellent dining options, from typical Colombian restaurants to international cuisine. There are also several shopping centers, gyms, and everything needed for a comfortable stay.',
+            'Experiencias Imperdibles en Bogotá': 'Must-See Experiences in Bogotá',
+            'Cerro de Monserrate': 'Monserrate Hill',
+            'El símbolo más icónico de Bogotá. Sube en teleférico o funicular para disfrutar de vistas panorámicas espectaculares de toda la ciudad a 3,152 metros de altura. Ideal para ir temprano en la mañana o al atardecer.': 'Bogotá\'s most iconic symbol. Take the cable car or funicular to enjoy spectacular panoramic views of the entire city at 3,152 meters altitude. Ideal to go early in the morning or at sunset.',
+            'Ver ubicación →': 'View location →',
+            'La Candelaria - Centro Histórico': 'La Candelaria - Historic Center',
+            'El corazón colonial de Bogotá. Recorre sus calles empedradas, visita el Museo del Oro (imperdible), el Museo Botero, la Plaza de Bolívar y descubre el street art en sus coloridas fachadas. Perfecto para un día completo de exploración cultural.': 'The colonial heart of Bogotá. Walk its cobblestone streets, visit the Gold Museum (a must), Botero Museum, Plaza de Bolívar and discover street art on its colorful facades. Perfect for a full day of cultural exploration.',
+            'Usaquén - Mercado de Pulgas': 'Usaquén - Flea Market',
+            'Todos los domingos, este pintoresco barrio se llena de vida con su famoso mercado de artesanías. Encuentra productos locales, artesanías, joyería, ropa y deliciosa comida típica. El ambiente es perfecto para pasear y disfrutar de un domingo bogotano.': 'Every Sunday, this picturesque neighborhood comes alive with its famous craft market. Find local products, crafts, jewelry, clothing and delicious typical food. The atmosphere is perfect for strolling and enjoying a Bogotá Sunday.',
+            'Zona T y Parque de la 93': 'T Zone and Park 93',
+            'El epicentro gastronómico y de vida nocturna de Bogotá. Encuentra restaurantes de cocina internacional, bares, discotecas y cafés. Ideal para cenar, tomar algo o disfrutar del ambiente cosmopolita de la ciudad.': 'Bogotá\'s gastronomic and nightlife epicenter. Find international cuisine restaurants, bars, clubs and cafes. Ideal for dinner, drinks or enjoying the city\'s cosmopolitan atmosphere.',
+            'Gastronomía Colombiana': 'Colombian Gastronomy',
+            'No te vayas sin probar: Ajiaco bogotano (sopa típica), bandeja paisa, arepas, empanadas, lechona y un delicioso chocolate con queso. Para postres, prueba el arequipe y las obleas.': 'Don\'t leave without trying: Ajiaco bogotano (typical soup), bandeja paisa, arepas, empanadas, lechona and delicious hot chocolate with cheese. For desserts, try arequipe and obleas.',
+            'Ciclovía Dominical': 'Sunday Ciclovía',
+            'Todos los domingos y festivos de 7am a 2pm, más de 120 km de vías se cierran al tráfico vehicular. Alquila una bici y únete a miles de bogotanos en esta tradición de más de 40 años. ¡Una forma única de conocer la ciudad!': 'Every Sunday and holiday from 7am to 2pm, over 120 km of roads are closed to vehicular traffic. Rent a bike and join thousands of Bogotanos in this 40+ year tradition. A unique way to explore the city!',
+            'Consejos Útiles': 'Useful Tips',
+            'Bogotá está a 2,640 metros de altura. Tómate el primer día con calma para aclimatarte': 'Bogotá is at 2,640 meters altitude. Take the first day easy to acclimatize',
+            'El clima es impredecible. Lleva siempre una chaqueta ligera': 'Weather is unpredictable. Always carry a light jacket',
+            'Usa apps como Beat, Uber o Cabify para moverte seguro': 'Use apps like Beat, Uber or Cabify to move around safely',
+            'Los mejores días para visitar museos: muchos son gratis los domingos': 'Best days to visit museums: many are free on Sundays',
+            'Cambia dinero en casas de cambio oficiales, no en la calle': 'Exchange money at official exchange houses, not on the street',
+
+            // Sofá cama
+            'Instrucciones del Sofá Cama': 'Sofa Bed Instructions',
+            'Cómo Usar el Sofá Cama': 'How to Use the Sofa Bed',
+            'Para evitar daños y asegurar que todos disfruten del sofá cama, por favor sigue este video tutorial que muestra paso a paso cómo desplegarlo y guardarlo correctamente:': 'To avoid damage and ensure everyone enjoys the sofa bed, please follow this video tutorial showing step by step how to unfold and store it correctly:',
+            'Ver en YouTube →': 'Watch on YouTube →',
+            '⚠️ Importante: Seguir correctamente las instrucciones del video ayuda a prevenir daños al mecanismo del sofá cama. Si tienes dudas, contáctanos por WhatsApp antes de usarlo.': '⚠️ Important: Following the video instructions correctly helps prevent damage to the sofa bed mechanism. If you have questions, contact us on WhatsApp before using it.',
+
+            // Normas
+            'Normas de Convivencia': 'House Rules',
+            'Para garantizar una experiencia agradable para todos, te pedimos seguir estas normas:': 'To ensure a pleasant experience for everyone, we ask you to follow these rules:',
+            'No fiestas: El apartamento es un espacio de descanso. No se permiten fiestas ni reuniones grandes': 'No parties: The apartment is a resting space. Parties and large gatherings are not allowed',
+            'No mascotas: Por políticas del edificio, no se permiten animales de compañía': 'No pets: Due to building policies, pets are not allowed',
+            'Horario de silencio: Después de las 11:00 PM, mantén el volumen bajo para respetar a los vecinos': 'Quiet hours: After 11:00 PM, keep the volume low to respect neighbors',
+            'Áreas comunes: Respeta los espacios compartidos del edificio y sus normas': 'Common areas: Respect the building\'s shared spaces and rules',
+            'Fumadores: Si fumas, hazlo en el balcón o áreas permitidas': 'Smokers: If you smoke, do so on the balcony or permitted areas',
+            '⚠️ MUY IMPORTANTE': '⚠️ VERY IMPORTANT',
+            'Al finalizar tu estadía, por favor entrega las llaves en la PORTERÍA del edificio. Es fundamental que sigas este procedimiento.': 'At the end of your stay, please leave the keys at the building\'s RECEPTION. It is essential that you follow this procedure.',
+
+            // Info útil
+            'Información Útil': 'Useful Information',
+            'Red: APTO604': 'Network: APTO604',
+            'Contraseña: 41373163': 'Password: 41373163',
+            'Check-out: No olvides dejar las llaves en portería': 'Check-out: Don\'t forget to leave keys at reception',
+            '🚨 Emergencias: Número de emergencias en Bogotá: 123': '🚨 Emergencies: Emergency number in Bogotá: 123',
+            '📞 Contacto: 3154645370': '📞 Contact: 3154645370',
+            'Contactar por WhatsApp': 'Contact via WhatsApp',
+
+            // Instalación
+            'Instala esta guía en tu celular': 'Install this guide on your phone',
+            'Accede fácilmente a toda la información desde tu pantalla de inicio': 'Easily access all information from your home screen',
+            'Android (Chrome/Edge):': 'Android (Chrome/Edge):',
+            'Toca el menú (⋮) en la esquina superior': 'Tap the menu (⋮) in the top corner',
+            'Selecciona "Agregar a pantalla de inicio"': 'Select "Add to home screen"',
+            'Confirma y listo!': 'Confirm and done!',
+            'iPhone/iPad (Safari):': 'iPhone/iPad (Safari):',
+            'Toca el botón Compartir (□↑)': 'Tap the Share button (□↑)',
+            'Selecciona "Agregar a pantalla de inicio"': 'Select "Add to Home Screen"',
+            'Dale un nombre y toca "Agregar"': 'Give it a name and tap "Add"',
+
+            // Footer
+            '¡Disfruta tu estadía en Bogotá! 🇨🇴': 'Enjoy your stay in Bogotá! 🇨🇴',
+            'Gracias por elegir nuestro apartamento': 'Thank you for choosing our apartment'
+        };
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'es' ? 'en' : 'es';
+
+            // Cambiar texto del botón
+            const btnText = document.getElementById('lang-btn-text');
+            btnText.textContent = currentLang === 'es' ? '🇺🇸 English' : '🇪🇸 Español';
+
+            // Traducir elementos con data-es y data-en
+            document.querySelectorAll('[data-es]').forEach(element => {
+                if (currentLang === 'en') {
+                    element.textContent = element.getAttribute('data-en');
+                } else {
+                    element.textContent = element.getAttribute('data-es');
+                }
+            });
+
+            // Traducir todo el texto visible
+            translatePageContent();
+
+            // Guardar preferencia
+            localStorage.setItem('preferred-language', currentLang);
+        }
+
+        function translatePageContent() {
+            const walker = document.createTreeWalker(
+                document.body,
+                NodeFilter.SHOW_TEXT,
+                null,
+                false
+            );
+
+            let node;
+            const nodesToTranslate = [];
+
+            while (node = walker.nextNode()) {
+                if (node.textContent.trim() && node.parentElement.tagName !== 'SCRIPT' && node.parentElement.tagName !== 'STYLE') {
+                    nodesToTranslate.push(node);
+                }
+            }
+
+            nodesToTranslate.forEach(node => {
+                const text = node.textContent.trim();
+                if (currentLang === 'en' && translations[text]) {
+                    node.textContent = node.textContent.replace(text, translations[text]);
+                } else if (currentLang === 'es') {
+                    // Buscar la traducción inversa
+                    for (let [spanish, english] of Object.entries(translations)) {
+                        if (text === english) {
+                            node.textContent = node.textContent.replace(text, spanish);
+                            break;
+                        }
+                    }
+                }
+            });
+        }
+
+        // Detectar idioma del navegador y cargar preferencia
+        window.addEventListener('load', () => {
+            // Primero verificar si hay una preferencia guardada
+            const savedLang = localStorage.getItem('preferred-language');
+
+            if (savedLang) {
+                // Si hay preferencia guardada, usarla
+                if (savedLang !== currentLang) {
+                    toggleLanguage();
+                }
+            } else {
+                // Si no hay preferencia guardada, detectar idioma del navegador
+                const browserLang = navigator.language || navigator.userLanguage;
+
+                // Si el navegador está en inglés, cambiar automáticamente
+                if (browserLang.startsWith('en') && currentLang === 'es') {
+                    toggleLanguage();
+                }
+                // Si el navegador está en español y la página está en inglés
+                else if (browserLang.startsWith('es') && currentLang === 'en') {
+                    toggleLanguage();
+                }
+            }
+        });
+
+        // Registrar Service Worker para PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(registration => {
+                        console.log('Service Worker registrado exitosamente');
+                    })
+                    .catch(error => {
+                        console.log('Error al registrar Service Worker:', error);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>
